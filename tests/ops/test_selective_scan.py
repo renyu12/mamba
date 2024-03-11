@@ -35,6 +35,8 @@ from mamba_ssm.ops.selective_scan_interface import mamba_inner_fn, mamba_inner_r
 @pytest.mark.parametrize("is_variable_C", [True])
 # @pytest.mark.parametrize("is_variable_B", [False, True])
 @pytest.mark.parametrize("is_variable_B", [True])
+
+# renyu: 测试selective_scan_fn方法，和selective_scan_ref的输出做对比
 def test_selective_scan(is_variable_B, is_variable_C, varBC_groups, has_D, has_z, has_delta_bias,
                         delta_softplus, return_last_state, seqlen, itype, wtype):
     if varBC_groups > 1 and (not is_variable_B or not is_variable_C):
@@ -157,6 +159,8 @@ def test_selective_scan(is_variable_B, is_variable_C, varBC_groups, has_D, has_z
 # @pytest.mark.parametrize("is_variable_C", [False])
 @pytest.mark.parametrize("is_variable_B", [False, True])
 # @pytest.mark.parametrize("is_variable_B", [True])
+
+# renyu: 测试mamba_inner_fn方法，和mamba_inner_ref的输出做对比
 def test_mamba_inner_fn(is_variable_B, is_variable_C, seqlen, itype, wtype):
     device = 'cuda'
     rtol, atol = (6e-4, 2e-3) if itype == torch.float32 else (3e-3, 5e-3)

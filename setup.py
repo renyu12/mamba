@@ -119,6 +119,8 @@ if not SKIP_CUDA_BUILD:
     if FORCE_CXX11_ABI:
         torch._C._GLIBCXX_USE_CXX11_ABI = True
 
+    # renyu: 使用CUDA C++编写的selective_scan C++代码，编译成selective_scan_cude库，使得python代码中可以直接import调用
+    #        封装了，对外只提供fwd()和bwd()两个方法完成正反向的计算
     ext_modules.append(
         CUDAExtension(
             name="selective_scan_cuda",
@@ -264,6 +266,8 @@ setup(
         "bdist_wheel": CachedWheelsCommand,
     },
     python_requires=">=3.7",
+    # renyu: 依赖包有pytorch、packaging包管理器、ninja构建工具（不太懂）、einops（提供rearrange、repeat等多维数组操作方法）
+    #        triton、transformer（主要用的Hugging Face加载模型这一部分）、causal_conv1d（作者Tri Dao写的高效1维卷积库）
     install_requires=[
         "torch",
         "packaging",

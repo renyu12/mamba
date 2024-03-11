@@ -491,6 +491,7 @@ selective_scan_bwd(const at::Tensor &u, const at::Tensor &delta,
     return result;
 }
 
+// renyu: 封装成python的函数方便python调用，selective_scan_fwd()->fwd()正向运算，selective_scan_bwd()->bwd()反向运算
 PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
     m.def("fwd", &selective_scan_fwd, "Selective scan forward");
     m.def("bwd", &selective_scan_bwd, "Selective scan backward");
